@@ -1,11 +1,31 @@
-var app = angular.module('app', ['ngMessages']);
+var app = angular.module('app', ['ngMessages', 'ngRoute']);
+
+app.config(function($routeProvider){
+    $routeProvider
+
+        // standing payment page
+        .when('/', {
+            templateUrl : 'pages/standingPayment.html',
+            controller: 'MainCtrl'
+        })
+
+        // source page
+        .when('/source', {
+            templateUrl : 'pages/source.html',
+            controller: 'SourceCtrl'
+        });
+});
+
+app.controller('AboutCtrl', function($scope){
+    console.log("About page");
+    $scope.message = 'Everyone come and see how good I look!';
+});
+
+app.controller('SourceCtrl', function($scope){});
 
 app.controller('MainCtrl', function($scope) {
     $scope.submitForm = function(isValid) {
-        $scope.submitted = true;
-        if (isValid) {
-            $scope.formSuccess=true;
-        }
+        
     };
 });
 
