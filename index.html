@@ -36,7 +36,7 @@
                 <label>Firm Name</label>
                 <input type="text" name="firmName" class="form-control"
                     ng-model="main.firmName"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
             
@@ -64,7 +64,7 @@
                 <label>First name</label>
                 <input type="text" name="firstName" class="form-control"
                     ng-model="main.firstName"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
 
@@ -74,8 +74,7 @@
                 <label>M.I.</label>
                 <input type="text" name="firstName" class="form-control"
                     ng-model="main.middleInitial"
-                    ng-maxlength="1"
-                    required>
+                    ng-maxlength="1">
             </div>
 
             <!-- Last name -->
@@ -84,7 +83,8 @@
                 <label>Last Name</label>
                 <input type="text" name="lastName" class="form-control"
                     ng-model="main.lastName"
-                    ng-maxlength="1">
+                    ng-maxlength="50"
+                    required>
             </div>
         </div>
 
@@ -95,8 +95,7 @@
                 <label>Additional Owner, Company or Trust Name if applicable</label>
                 <input type="text" name="extra" class="form-control"
                     ng-model="main.extra"
-                    ng-maxlength="1"
-                    required>
+                    ng-maxlength="50">
             </div>
         </div>
 
@@ -105,10 +104,11 @@
             <div class="form-group col-xs-5" 
                 ng-class="{ 'has-error' : userForm.phoneNumber.$invalid && !userForm.phoneNumber.$pristine && submitted}">
                 <label>Phone Number</label>
-                <input format-phone type="text" id="phoneNumber" name="phoneNumber" class="form-control"
+                <input format-phone type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="xxx-xxx-xxxx"
                     ng-model="main.phoneNumber"
                     ng-minlength="10"
-                    ng-maxlength="10">
+                    ng-maxlength="10"
+                    required>
             </div>
             <div class="col-xs-7"></div>
 
@@ -129,7 +129,7 @@
                 <label class="checkbox-inline control-label ">
                     <input type="checkbox">
                     Update stored phone number
-                </label>      
+                </label>
             </div>
         </div>
 
@@ -154,8 +154,7 @@
                     ng-model="main.accountNumber2"
                     ng-minlength="9"
                     ng-maxlength="9"
-                    ng-pattern="/\d{9}/i"
-                    required>      
+                    ng-pattern="/\d{9}/i">      
             </div>
 
             <!-- Account Number 3 -->
@@ -166,8 +165,7 @@
                     ng-model="main.accountNumber3"
                     ng-minlength="9"
                     ng-maxlength="9"
-                    ng-pattern="/\d{9}/i"
-                    required>      
+                    ng-pattern="/\d{9}/i">      
             </div>
         </div>
 
@@ -212,8 +210,7 @@
                     ng-model="main.routingNumberWires"
                     ng-minlength="9"
                     ng-maxlength="9"
-                    ng-pattern="/\d{9}/i"
-                    required>      
+                    ng-pattern="/\d{9}/i">      
             </div>
 
             <!-- Bank Routing Number (ABA for EFTs) -->
@@ -224,8 +221,7 @@
                     ng-model="main.routingNumberEFTs"
                     ng-minlength="9"
                     ng-maxlength="9"
-                    ng-pattern="/\d{9}/i"
-                    required>      
+                    ng-pattern="/\d{9}/i">      
             </div>
         </div>
 
@@ -236,21 +232,12 @@
                 <label>Bank Name</label>
                 <input type="text" name="bankName" class="form-control"
                     ng-model="main.bankName"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
         </div>
 
         <div class="row">
-            <!-- Owner names -->
-            <div class="form-group col-xs-6"
-                ng-class="{ 'has-error' : userForm.ownerName.$invalid && !userForm.ownerName.$pristine && submitted}">
-                <label>Owner(s) Name(s) Exactly as on Bank Account</label>
-                <input type="text" name="ownerName" class="form-control"
-                    ng-model="main.ownerName"
-                    ng-maxlength="5"
-                    required>
-            </div>
 
             <!-- Bank Account Number (final destination) -->
             <div class="form-group col-xs-6"
@@ -259,6 +246,16 @@
                 <input type="text" name="bankNumberDestination" class="form-control"
                     ng-model="main.bankNumberDestination"
                     ng-maxlength="5"
+                    required>
+            </div>
+
+            <!-- Owner names -->
+            <div class="form-group col-xs-6"
+                ng-class="{ 'has-error' : userForm.ownerName.$invalid && !userForm.ownerName.$pristine && submitted}">
+                <label>Owner(s) Name(s) Exactly as on Bank Account</label>
+                <input type="text" name="ownerName" class="form-control"
+                    ng-model="main.ownerName"
+                    ng-maxlength="50"
                     required>
             </div>
         </div>
@@ -270,7 +267,7 @@
                 <label>Details for Wires Only</label>
                 <input type="text" name="wireDetails" class="form-control"
                     ng-model="main.wireDetails"
-                    ng-maxlength="5">
+                    ng-maxlength="50">
             </div>
         </div>
 
@@ -281,7 +278,7 @@
                 <label>SWIFT code (required if out of US)</label>
                 <input type="text" name="swiftCode" class="form-control"
                     ng-model="main.swiftCode"
-                    ng-maxlength="5">
+                    ng-maxlength="50">
             </div>
 
             <!-- Destination Country -->
@@ -290,7 +287,7 @@
                 <label>Destination Country</label>
                 <input type="text" name="destinationCountry" class="form-control"
                     ng-model="main.destinationCountry"
-                    ng-maxlength="5">
+                    ng-maxlength="50">
             </div>
         </div>
 
@@ -316,7 +313,7 @@
                 <label>Payee</label>
                 <input type="text" name="payee" class="form-control"
                     ng-model="main.payee"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
         </div>
@@ -327,7 +324,7 @@
                 <label>Attention</label>
                 <input type="text" name="attention" class="form-control"
                     ng-model="main.attention"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
 
@@ -338,7 +335,7 @@
                 <label>Care Of</label>
                 <input type="text" name="careOf" class="form-control"
                     ng-model="main.careOf"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
         </div>
@@ -349,7 +346,7 @@
                 <label>Address</label>
                 <input type="text" name="address" class="form-control"
                     ng-model="main.address"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
         </div>
@@ -360,7 +357,7 @@
                 <label>City</label>
                 <input type="text" name="city" class="form-control"
                     ng-model="main.city"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
 
@@ -369,7 +366,7 @@
                 <label>State/Province</label>
                 <input type="text" name="state" class="form-control"
                     ng-model="main.state"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
 
@@ -378,7 +375,7 @@
                 <label>Zip/Postal Code</label>
                 <input type="text" name="careOf" class="form-control"
                     ng-model="main.careOf"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
         </div>
@@ -389,8 +386,7 @@
                 <label>Memo</label>
                 <input type="text" name="memo" class="form-control"
                     ng-model="main.memo"
-                    ng-maxlength="5"
-                    required>
+                    ng-maxlength="50">
             </div>
         </div>
 
@@ -400,8 +396,7 @@
                 <label>Check Stub Information</label>
                 <input type="text" name="checkStubInfo" class="form-control"
                     ng-model="main.checkStubInfo"
-                    ng-maxlength="5"
-                    required>
+                    ng-maxlength="50">
             </div>
         </div>
 
@@ -422,7 +417,7 @@
                 <label>Signature</label>
                 <input type="text" name="signature" class="form-control"
                     ng-model="main.signature"
-                    ng-maxlength="5"
+                    ng-maxlength="50"
                     required>
             </div>
 
@@ -431,7 +426,6 @@
                 <label>Date</label>
                 <input type="date" name="sigDate" class="form-control"
                     ng-model="main.sigDate"
-                    ng-maxlength="5"
                     required>
             </div>
         </div>
@@ -444,8 +438,7 @@
                         class="btn btn-primary">  
                         Submit
                     </button>
-                </a>
-                
+                </a>                
             </div>
             <div class="col-xs-9"></div>
         </div>
