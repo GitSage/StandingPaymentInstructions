@@ -1,0 +1,471 @@
+    
+<h1>Standing Payment Instructions</h1>    
+<div class="row">
+    <p class="col-sm-12">Use this page to change standing Check Disbursement, Bank Wire, Electronic Funds Transfer, and/or Journal Instructions on your brokerage account.</p>
+</div>
+
+<form name="userForm" ng-submit="submitForm(userForm.$valid)" class="" novalidate>
+
+    <div ng-include="'pages/messages.html'"></div>
+
+    <hr>
+    <h4>Authorized agent/Advisor</h4>
+    <div class="row">
+        <div class="form-group col-xs-6"
+            ng-class="{ 'has-error' : userForm.firmName.$invalid && !userForm.firmName.$pristine && submitted}">
+            <label>Firm Name</label>
+            <input type="text" name="firmName" class="form-control"
+                ng-model="main.firmName"
+                ng-maxlength="50"
+                required>
+        </div>
+        
+        <!-- g number field -->
+        <div class="form-group col-xs-6" 
+            ng-class="{ 'has-error' : userForm.gNumber.$invalid && !userForm.gNumber.$pristine && submitted}">
+            <label>G Number</label>
+            <input type="text" name="gNumber" class="form-control" placeholder="G12345678"
+                ng-model="main.gNumber"
+                ng-minlength="9"
+                ng-maxlength="9"
+                ng-pattern="/G\d{8}/i"
+                required>      
+        </div>
+    </div>
+
+    <hr>
+
+    <h4>1. Account Owners</h4>
+
+    <!-- First name -->
+    <div class="row">
+        <div class="form-group col-xs-5" 
+            ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine && submitted}">
+            <label>First name</label>
+            <input type="text" name="firstName" class="form-control"
+                ng-model="main.firstName"
+                ng-maxlength="50"
+                required>
+        </div>
+
+        <!-- Middle initial -->
+        <div class="form-group col-xs-2" 
+            ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine && submitted}">
+            <label>M.I.</label>
+            <input type="text" name="firstName" class="form-control"
+                ng-model="main.middleInitial"
+                ng-maxlength="1">
+        </div>
+
+        <!-- Last name -->
+        <div class="form-group col-xs-5" 
+            ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine && submitted}">
+            <label>Last Name</label>
+            <input type="text" name="lastName" class="form-control"
+                ng-model="main.lastName"
+                ng-maxlength="50"
+                required>
+        </div>
+    </div>
+
+    <!-- Extra information -->
+    <div class="row">
+        <div class="form-group col-xs-12" 
+            ng-class="{ 'has-error' : userForm.extra.$invalid && !userForm.extra.$pristine && submitted}">
+            <label>Additional Owner, Company or Trust Name if applicable</label>
+            <input type="text" name="extra" class="form-control"
+                ng-model="main.extra"
+                ng-maxlength="50">
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Phone Number -->
+        <div class="form-group col-xs-5" 
+            ng-class="{ 'has-error' : userForm.phoneNumber.$invalid && !userForm.phoneNumber.$pristine && submitted}">
+            <label>Phone Number</label>
+            <input format-phone type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="xxx-xxx-xxxx"
+                ng-model="main.phoneNumber"
+                ng-minlength="10"
+                ng-maxlength="10"
+                required>
+        </div>
+        <div class="col-xs-7"></div>
+
+        <!-- Extension -->
+        <div class="form-group col-xs-4" 
+            ng-class="{ 'has-error' : userForm.extension.$invalid && !userForm.extension.$pristine && submitted}">
+            <label>Extension</label>
+            <input type="text" name="extension" class="form-control"
+                ng-model="main.extension"
+                ng-minlength="1"
+                ng-maxlength="10"
+                ng-pattern="/\d{1-10}/i"
+                required>      
+        </div>
+
+        <!-- Update phone number? -->
+        <div class="form-group col-sm-3 vpad-10">
+            <label class="checkbox-inline control-label ">
+                <input type="checkbox">
+                Update stored phone number
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Account Number 1 -->
+        <div class="form-group col-xs-4" 
+            ng-class="{ 'has-error' : userForm.accountNumber1.$invalid && !userForm.accountNumber1.$pristine && submitted}">
+            <label>Account Number</label>
+            <input type="text" name="accountNumber1" class="form-control"
+                ng-model="main.accountNumber1"
+                ng-minlength="9"
+                ng-maxlength="9"
+                ng-pattern="/\d{9}/i"
+                required>      
+        </div>
+
+        <!-- Account Number 2 -->
+        <div class="form-group col-xs-4" 
+            ng-class="{ 'has-error' : userForm.accountNumber2.$invalid && !userForm.accountNumber2.$pristine && submitted}">
+            <label>Account Number</label>
+            <input type="text" name="accountNumber2" class="form-control"
+                ng-model="main.accountNumber2"
+                ng-minlength="9"
+                ng-maxlength="9"
+                ng-pattern="/\d{9}/i">      
+        </div>
+
+        <!-- Account Number 3 -->
+        <div class="form-group col-xs-4" 
+            ng-class="{ 'has-error' : userForm.accountNumber3.$invalid && !userForm.accountNumber3.$pristine && submitted}">
+            <label>Account Number</label>
+            <input type="text" name="accountNumber3" class="form-control"
+                ng-model="main.accountNumber3"
+                ng-minlength="9"
+                ng-maxlength="9"
+                ng-pattern="/\d{9}/i">      
+        </div>
+    </div>
+
+    <hr>
+    <h4>2. Bank Standing Instructions</h4>
+    <p>Bank Standing Instructions allow you to move money between your brokerage account and a bank account via Bank Wire (processed via the Federal Reserve System), or EFT (processed via the Automated Clearing House "ACH").</p>
+
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <label class="radio-inline"><input type="radio" name="optradio">Establish new instructions</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Change existing instructions</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <label class="radio-inline"><input type="radio" name="optradio">Bank Wire</label>
+            <label class="radio-inline"><input type="radio" name="optradio">EFT</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <label class="radio-inline"><input type="radio" name="optradio">1st party (names on bank account and brokerage account are the same)</label>
+            <label class="radio-inline"><input type="radio" name="optradio">3rd party (not the same)</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <label class="radio-inline"><input type="radio" name="optradio">Checkings</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Savings</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Bank Routing Number (ABA for Wires) -->
+        <div class="form-group col-xs-6" 
+            ng-class="{ 'has-error' : userForm.routingNumberWires.$invalid && !userForm.routingNumberWires.$pristine && submitted}">
+            <label>Bank Routing Number (ABA for Wires)</label>
+            <input type="text" name="routingNumberWires" class="form-control"  placeholder="xxxxxxxxx"
+                ng-model="main.routingNumberWires"
+                ng-minlength="9"
+                ng-maxlength="9"
+                ng-pattern="/\d{9}/i">      
+        </div>
+
+        <!-- Bank Routing Number (ABA for EFTs) -->
+        <div class="form-group col-xs-6" 
+            ng-class="{ 'has-error' : userForm.routingNumberEFTs.$invalid && !userForm.routingNumberEFTs.$pristine && submitted}">
+            <label>Bank Routing Number (ABA for EFTs)</label>
+            <input type="text" name="routingNumberEFTs" class="form-control"  placeholder="xxxxxxxxx"
+                ng-model="main.routingNumberEFTs"
+                ng-minlength="9"
+                ng-maxlength="9"
+                ng-pattern="/\d{9}/i">      
+        </div>
+    </div>
+
+     <div class="row">
+
+        <div class="form-group col-xs-12"
+            ng-class="{ 'has-error' : userForm.bankName.$invalid && !userForm.bankName.$pristine && submitted}">
+            <label>Bank Name</label>
+            <input type="text" name="bankName" class="form-control"
+                ng-model="main.bankName"
+                ng-maxlength="50"
+                required>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <!-- Bank Account Number (final destination) -->
+        <div class="form-group col-xs-6"
+            ng-class="{ 'has-error' : userForm.bankNumberDestination.$invalid && !userForm.bankNumberDestination.$pristine && submitted}">
+            <label>Bank Account Number (final destination)</label>
+            <input type="text" name="bankNumberDestination" class="form-control"
+                ng-model="main.bankNumberDestination"
+                ng-maxlength="5"
+                required>
+        </div>
+
+        <!-- Owner names -->
+        <div class="form-group col-xs-6"
+            ng-class="{ 'has-error' : userForm.ownerName.$invalid && !userForm.ownerName.$pristine && submitted}">
+            <label>Owner(s) Name(s) Exactly as on Bank Account</label>
+            <input type="text" name="ownerName" class="form-control"
+                ng-model="main.ownerName"
+                ng-maxlength="50"
+                required>
+        </div>
+    </div>
+        
+    <div class="row">
+        <!-- Extra Details -->
+        <div class="form-group col-xs-12"
+            ng-class="{ 'has-error' : userForm.wireDetails.$invalid && !userForm.wireDetails.$pristine && submitted}">
+            <label>Details for Wires Only</label>
+            <input type="text" name="wireDetails" class="form-control"
+                ng-model="main.wireDetails"
+                ng-maxlength="50">
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- SWIFT code -->
+        <div class="form-group col-xs-6"
+            ng-class="{ 'has-error' : userForm.swiftCode.$invalid && !userForm.swiftCode.$pristine && submitted}">
+            <label>SWIFT code (required if out of US)</label>
+            <input type="text" name="swiftCode" class="form-control"
+                ng-model="main.swiftCode"
+                ng-maxlength="50">
+        </div>
+
+        <!-- Destination Country -->
+        <div class="form-group col-xs-6"
+            ng-class="{ 'has-error' : userForm.destinationCountry.$invalid && !userForm.destinationCountry.$pristine && submitted}">
+            <label>Destination Country</label>
+            <input type="text" name="destinationCountry" class="form-control"
+                ng-model="main.destinationCountry"
+                ng-maxlength="50">
+        </div>
+    </div>
+
+    <hr>
+    <h4>4. Check Disbursement Standing Instructions</h4>
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <label class="radio-inline"><input type="radio" name="optradio">Establish new instructions</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Change existing instructions</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12">
+            <label class="radio-inline"><input type="radio" name="optradio">1st Party</label>
+            <label class="radio-inline"><input type="radio" name="optradio">3rd Party</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12"
+            ng-class="{ 'has-error' : userForm.payee.$invalid && !userForm.payee.$pristine && submitted}">
+            <label>Payee</label>
+            <input type="text" name="payee" class="form-control"
+                ng-model="main.payee"
+                ng-maxlength="50"
+                required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-6"
+            ng-class="{ 'has-error' : userForm.attention.$invalid && !userForm.attention.$pristine && submitted}">
+            <label>Attention</label>
+            <input type="text" name="attention" class="form-control"
+                ng-model="main.attention"
+                ng-maxlength="50"
+                required>
+        </div>
+
+        <div class="col-xs-1 vpad-10">OR</div>
+
+        <div class="form-group col-xs-5"
+            ng-class="{ 'has-error' : userForm.careOf.$invalid && !userForm.careOf.$pristine && submitted}">
+            <label>Care Of</label>
+            <input type="text" name="careOf" class="form-control"
+                ng-model="main.careOf"
+                ng-maxlength="50"
+                required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12"
+            ng-class="{ 'has-error' : userForm.address.$invalid && !userForm.address.$pristine && submitted}">
+            <label>Address</label>
+            <input type="text" name="address" class="form-control"
+                ng-model="main.address"
+                ng-maxlength="50"
+                required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-6"
+            ng-class="{ 'has-error' : userForm.city.$invalid && !userForm.city.$pristine && submitted}">
+            <label>City</label>
+            <input type="text" name="city" class="form-control"
+                ng-model="main.city"
+                ng-maxlength="50"
+                required>
+        </div>
+
+        <div class="form-group col-xs-3"
+            ng-class="{ 'has-error' : userForm.state.$invalid && !userForm.state.$pristine && submitted}">
+            <label>State/Province</label>
+            <input type="text" name="state" class="form-control"
+                ng-model="main.state"
+                ng-maxlength="50"
+                required>
+        </div>
+
+        <div class="form-group col-xs-3"
+            ng-class="{ 'has-error' : userForm.careOf.$invalid && !userForm.careOf.$pristine && submitted}">
+            <label>Zip/Postal Code</label>
+            <input type="text" name="careOf" class="form-control"
+                ng-model="main.careOf"
+                ng-maxlength="50"
+                required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12"
+            ng-class="{ 'has-error' : userForm.memo.$invalid && !userForm.memo.$pristine && submitted}">
+            <label>Memo</label>
+            <input type="text" name="memo" class="form-control"
+                ng-model="main.memo"
+                ng-maxlength="50">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12"
+            ng-class="{ 'has-error' : userForm.checkStubInfo.$invalid && !userForm.checkStubInfo.$pristine && submitted}">
+            <label>Check Stub Information</label>
+            <input type="text" name="checkStubInfo" class="form-control"
+                ng-model="main.checkStubInfo"
+                ng-maxlength="50">
+        </div>
+    </div>
+
+    <hr>
+    <h4>5. Signatures and Dates</h4>
+
+    <div class="row">
+        <p  class="col-xs-12">Typing your name into the following box constitutes a legally binding signature. By signing you are accepting this
+            <a href="#" data-toggle="modal" data-target="#signatureModal">
+                agreement.
+            </a>
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-6"
+            ng-class="{ 'has-error' : userForm.signature.$invalid && !userForm.signature.$pristine && submitted}">
+            <label>Signature</label>
+            <input type="text" name="signature" class="form-control"
+                ng-model="main.signature"
+                ng-maxlength="50"
+                required>
+        </div>
+
+        <div class="form-group col-xs-6"
+            ng-class="{ 'has-error' : userForm.sigDate.$invalid && !userForm.sigDate.$pristine && submitted}">
+            <label>Date</label>
+            <input type="date" name="sigDate" class="form-control"
+                ng-model="main.sigDate"
+                required>
+        </div>
+    </div>
+
+    <!-- Submit button -->
+    <div class="row">
+        <div class="form-group col-xs-3">
+            <a href="#" data-toggle="modal" data-target="#successModal">
+                <button type="submit"
+                    class="btn btn-primary">  
+                    Submit
+                </button>
+            </a>                
+        </div>
+        <div class="col-xs-9"></div>
+    </div>
+    
+</form>
+
+
+<!-- Legal agreement modal -->
+<div class="modal fade" id="signatureModal" tabindex="-1" role="dialog" aria-labelledby="legal-agreement-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="legal-agreement-modal">Legal Agreement</h4>
+            </div>
+            <div class="modal-body">
+                <p>By signing below, you:</p>
+                <ul>
+                    <li>Authorize and direct Fidelity to accept Fidelity Brokerage Accounts and act upon instructions from your Authorized agent/Advisor who has been authorize with Level 1 or 2 Asset or assets from your Fidelity account to the designated bank accounts or other brokerage accounts in accordance with instructions above, without first confirming those instructions with you directly.
+                    </li>
+                    <li>Understand and agree that Fidelity will not be liable for any loss, expense, or costs arising out of any request from you or your Authorized agent/Advisor for the movement of money or shares so long as Fidelity moves the amount/shares to the account(s) identified above. Fidelity reserves the right, but has no obligation, to confirm your Authorized agent's(s')/Advisor's(s') instructions with you prior to acting on the instructions.</li>
+                    <li>Certify and agrree that the above certifications, authorizations, and appointments in this document will continue until Fidelity recieves the actual written notice of any change thereof.</li>
+                    <li>Agree to indemnify and hold harmless FIdelity and its affiliates and their respective officers, directors, employees, and agents from against any and all losses, claims, or financial obligations that may arise from any act or omission of the Authorized agent/Advisor with respect to your account.</li>
+                    <li>Understand and agree by granting trading authorization to your Authorized agent/Advisor, that your Authorized agent/Advisor will have the ability to instruct Fidelity to initate transfers of assets from your bank account to your Fidelity account, based on standing written funds transfer instructions provided by you to Fidelity.</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Successful submission modal -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="submission-modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="submission-modal">Success!</h4>
+            </div>
+            <div class="modal-body">
+                Form successfully submitted!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
