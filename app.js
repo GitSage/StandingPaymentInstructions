@@ -3,6 +3,11 @@ var app = angular.module('app', ['ngMessages', 'ngRoute']);
 app.config(function($routeProvider){
     $routeProvider
 
+        .when('', {
+            templateUrl : 'pages/standingPayment.html',
+            controller: 'MainCtrl'
+        })
+
         // standing payment page
         .when('/', {
             templateUrl : 'pages/standingPayment.html',
@@ -25,7 +30,6 @@ app.controller('SourceCtrl', function($scope){});
 
 app.controller('MainCtrl', function($scope) {
     $scope.submitForm = function(isValid) {
-        
     };
 });
 

@@ -6,29 +6,37 @@
 
 <form name="userForm" ng-submit="submitForm(userForm.$valid)" class="" novalidate>
 
-    <div ng-include="'pages/messages.html'"></div>
-
     <hr>
     <h4>Authorized agent/Advisor</h4>
+
+    <div class="help-block" ng-messages="userForm.firmName.$error" ng-if="userForm.firmName.$touched">
+        <p ng-message="maxlength">Firm name is too long.</p>
+        <p ng-message="required">Firm name is required.</p>
+    </div>
+
+    <div class="help-block" ng-messages="userForm.gNumber.$error" ng-if="userForm.gNumber.$touched">
+        <p ng-message="required">G number is required.</p>
+        <p ng-message="maxlength">G number must be a G followed by eight numbers.</p>
+        <p ng-message="pattern">G number must be a G followed by eight numbers.</p>
+    </div>
     <div class="row">
         <div class="form-group col-xs-6"
-            ng-class="{ 'has-error' : userForm.firmName.$invalid && !userForm.firmName.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.firmName.$invalid && userForm.firmName.$touched}">
             <label>Firm Name</label>
             <input type="text" name="firmName" class="form-control"
                 ng-model="main.firmName"
-                ng-maxlength="50"
+                ng-maxlength="5"
                 required>
         </div>
         
         <!-- g number field -->
         <div class="form-group col-xs-6" 
-            ng-class="{ 'has-error' : userForm.gNumber.$invalid && !userForm.gNumber.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.gNumber.$invalid && userForm.gNumber.$touched}">
             <label>G Number</label>
             <input type="text" name="gNumber" class="form-control" placeholder="G12345678"
                 ng-model="main.gNumber"
-                ng-minlength="9"
                 ng-maxlength="9"
-                ng-pattern="/G\d{8}/i"
+                ng-pattern="/G?\d{8,9}/i"
                 required>      
         </div>
     </div>
@@ -40,68 +48,49 @@
     <!-- First name -->
     <div class="row">
         <div class="form-group col-xs-5" 
-            ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine}">
             <label>First name</label>
-            <input type="text" name="firstName" class="form-control"
-                ng-model="main.firstName"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="firstName" class="form-control">
         </div>
 
         <!-- Middle initial -->
         <div class="form-group col-xs-2" 
-            ng-class="{ 'has-error' : userForm.firstName.$invalid && !userForm.firstName.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.initial.$invalid && !userForm.initial.$pristine}">
             <label>M.I.</label>
-            <input type="text" name="firstName" class="form-control"
-                ng-model="main.middleInitial"
-                ng-maxlength="1">
+            <input type="text" name="initial" class="form-control">
         </div>
 
         <!-- Last name -->
         <div class="form-group col-xs-5" 
-            ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.lastName.$invalid && !userForm.lastName.$pristine}">
             <label>Last Name</label>
-            <input type="text" name="lastName" class="form-control"
-                ng-model="main.lastName"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="lastName" class="form-control">
         </div>
     </div>
 
     <!-- Extra information -->
     <div class="row">
         <div class="form-group col-xs-12" 
-            ng-class="{ 'has-error' : userForm.extra.$invalid && !userForm.extra.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.extra.$invalid && !userForm.extra.$pristine}">
             <label>Additional Owner, Company or Trust Name if applicable</label>
-            <input type="text" name="extra" class="form-control"
-                ng-model="main.extra"
-                ng-maxlength="50">
+            <input type="text" name="extra" class="form-control">
         </div>
     </div>
 
     <div class="row">
         <!-- Phone Number -->
         <div class="form-group col-xs-5" 
-            ng-class="{ 'has-error' : userForm.phoneNumber.$invalid && !userForm.phoneNumber.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.phoneNumber.$invalid && !userForm.phoneNumber.$pristine}">
             <label>Phone Number</label>
-            <input format-phone type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="xxx-xxx-xxxx"
-                ng-model="main.phoneNumber"
-                ng-minlength="10"
-                ng-maxlength="10"
-                required>
+            <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="xxx-xxx-xxxx">
         </div>
         <div class="col-xs-7"></div>
 
         <!-- Extension -->
         <div class="form-group col-xs-4" 
-            ng-class="{ 'has-error' : userForm.extension.$invalid && !userForm.extension.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.extension.$invalid && !userForm.extension.$pristine}">
             <label>Extension</label>
-            <input type="text" name="extension" class="form-control"
-                ng-model="main.extension"
-                ng-minlength="1"
-                ng-maxlength="10"
-                ng-pattern="/\d{1-10}/i"
-                required>      
+            <input type="text" name="extension" class="form-control">      
         </div>
 
         <!-- Update phone number? -->
@@ -116,36 +105,23 @@
     <div class="row">
         <!-- Account Number 1 -->
         <div class="form-group col-xs-4" 
-            ng-class="{ 'has-error' : userForm.accountNumber1.$invalid && !userForm.accountNumber1.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.accountNumber1.$invalid && !userForm.accountNumber1.$pristine}">
             <label>Account Number</label>
-            <input type="text" name="accountNumber1" class="form-control"
-                ng-model="main.accountNumber1"
-                ng-minlength="9"
-                ng-maxlength="9"
-                ng-pattern="/\d{9}/i"
-                required>      
+            <input type="text" name="accountNumber1" class="form-control">      
         </div>
 
         <!-- Account Number 2 -->
         <div class="form-group col-xs-4" 
-            ng-class="{ 'has-error' : userForm.accountNumber2.$invalid && !userForm.accountNumber2.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.accountNumber2.$invalid && !userForm.accountNumber2.$pristine}">
             <label>Account Number</label>
-            <input type="text" name="accountNumber2" class="form-control"
-                ng-model="main.accountNumber2"
-                ng-minlength="9"
-                ng-maxlength="9"
-                ng-pattern="/\d{9}/i">      
+            <input type="text" name="accountNumber2" class="form-control">      
         </div>
 
         <!-- Account Number 3 -->
         <div class="form-group col-xs-4" 
-            ng-class="{ 'has-error' : userForm.accountNumber3.$invalid && !userForm.accountNumber3.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.accountNumber3.$invalid && !userForm.accountNumber3.$pristine}">
             <label>Account Number</label>
-            <input type="text" name="accountNumber3" class="form-control"
-                ng-model="main.accountNumber3"
-                ng-minlength="9"
-                ng-maxlength="9"
-                ng-pattern="/\d{9}/i">      
+            <input type="text" name="accountNumber3" class="form-control">      
         </div>
     </div>
 
@@ -184,36 +160,25 @@
     <div class="row">
         <!-- Bank Routing Number (ABA for Wires) -->
         <div class="form-group col-xs-6" 
-            ng-class="{ 'has-error' : userForm.routingNumberWires.$invalid && !userForm.routingNumberWires.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.routingNumberWires.$invalid && !userForm.routingNumberWires.$pristine}">
             <label>Bank Routing Number (ABA for Wires)</label>
-            <input type="text" name="routingNumberWires" class="form-control"  placeholder="xxxxxxxxx"
-                ng-model="main.routingNumberWires"
-                ng-minlength="9"
-                ng-maxlength="9"
-                ng-pattern="/\d{9}/i">      
+            <input type="text" name="routingNumberWires" class="form-control"  placeholder="xxxxxxxxx">      
         </div>
 
         <!-- Bank Routing Number (ABA for EFTs) -->
         <div class="form-group col-xs-6" 
-            ng-class="{ 'has-error' : userForm.routingNumberEFTs.$invalid && !userForm.routingNumberEFTs.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.routingNumberEFTs.$invalid && !userForm.routingNumberEFTs.$pristine}">
             <label>Bank Routing Number (ABA for EFTs)</label>
-            <input type="text" name="routingNumberEFTs" class="form-control"  placeholder="xxxxxxxxx"
-                ng-model="main.routingNumberEFTs"
-                ng-minlength="9"
-                ng-maxlength="9"
-                ng-pattern="/\d{9}/i">      
+            <input type="text" name="routingNumberEFTs" class="form-control"  placeholder="xxxxxxxxx">      
         </div>
     </div>
 
      <div class="row">
 
         <div class="form-group col-xs-12"
-            ng-class="{ 'has-error' : userForm.bankName.$invalid && !userForm.bankName.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.bankName.$invalid && !userForm.bankName.$pristine}">
             <label>Bank Name</label>
-            <input type="text" name="bankName" class="form-control"
-                ng-model="main.bankName"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="bankName" class="form-control">
         </div>
     </div>
 
@@ -221,53 +186,41 @@
 
         <!-- Bank Account Number (final destination) -->
         <div class="form-group col-xs-6"
-            ng-class="{ 'has-error' : userForm.bankNumberDestination.$invalid && !userForm.bankNumberDestination.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.bankNumberDestination.$invalid && !userForm.bankNumberDestination.$pristine}">
             <label>Bank Account Number (final destination)</label>
-            <input type="text" name="bankNumberDestination" class="form-control"
-                ng-model="main.bankNumberDestination"
-                ng-maxlength="5"
-                required>
+            <input type="text" name="bankNumberDestination" class="form-control">
         </div>
 
         <!-- Owner names -->
         <div class="form-group col-xs-6"
-            ng-class="{ 'has-error' : userForm.ownerName.$invalid && !userForm.ownerName.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.ownerName.$invalid && !userForm.ownerName.$pristine}">
             <label>Owner(s) Name(s) Exactly as on Bank Account</label>
-            <input type="text" name="ownerName" class="form-control"
-                ng-model="main.ownerName"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="ownerName" class="form-control">
         </div>
     </div>
         
     <div class="row">
         <!-- Extra Details -->
         <div class="form-group col-xs-12"
-            ng-class="{ 'has-error' : userForm.wireDetails.$invalid && !userForm.wireDetails.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.wireDetails.$invalid && !userForm.wireDetails.$pristine}">
             <label>Details for Wires Only</label>
-            <input type="text" name="wireDetails" class="form-control"
-                ng-model="main.wireDetails"
-                ng-maxlength="50">
+            <input type="text" name="wireDetails" class="form-control">
         </div>
     </div>
 
     <div class="row">
         <!-- SWIFT code -->
         <div class="form-group col-xs-6"
-            ng-class="{ 'has-error' : userForm.swiftCode.$invalid && !userForm.swiftCode.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.swiftCode.$invalid && !userForm.swiftCode.$pristine}">
             <label>SWIFT code (required if out of US)</label>
-            <input type="text" name="swiftCode" class="form-control"
-                ng-model="main.swiftCode"
-                ng-maxlength="50">
+            <input type="text" name="swiftCode" class="form-control">
         </div>
 
         <!-- Destination Country -->
         <div class="form-group col-xs-6"
-            ng-class="{ 'has-error' : userForm.destinationCountry.$invalid && !userForm.destinationCountry.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.destinationCountry.$invalid && !userForm.destinationCountry.$pristine}">
             <label>Destination Country</label>
-            <input type="text" name="destinationCountry" class="form-control"
-                ng-model="main.destinationCountry"
-                ng-maxlength="50">
+            <input type="text" name="destinationCountry" class="form-control">
         </div>
     </div>
 
@@ -289,94 +242,69 @@
 
     <div class="row">
         <div class="form-group col-xs-12"
-            ng-class="{ 'has-error' : userForm.payee.$invalid && !userForm.payee.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.payee.$invalid && !userForm.payee.$pristine}">
             <label>Payee</label>
-            <input type="text" name="payee" class="form-control"
-                ng-model="main.payee"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="payee" class="form-control">
         </div>
     </div>
 
     <div class="row">
         <div class="form-group col-xs-6"
-            ng-class="{ 'has-error' : userForm.attention.$invalid && !userForm.attention.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.attention.$invalid && !userForm.attention.$pristine}">
             <label>Attention</label>
-            <input type="text" name="attention" class="form-control"
-                ng-model="main.attention"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="attention" class="form-control">
         </div>
 
         <div class="col-xs-1 vpad-10">OR</div>
 
         <div class="form-group col-xs-5"
-            ng-class="{ 'has-error' : userForm.careOf.$invalid && !userForm.careOf.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.careOf.$invalid && !userForm.careOf.$pristine}">
             <label>Care Of</label>
-            <input type="text" name="careOf" class="form-control"
-                ng-model="main.careOf"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="careOf" class="form-control">
         </div>
     </div>
 
     <div class="row">
         <div class="form-group col-xs-12"
-            ng-class="{ 'has-error' : userForm.address.$invalid && !userForm.address.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.address.$invalid && !userForm.address.$pristine}">
             <label>Address</label>
-            <input type="text" name="address" class="form-control"
-                ng-model="main.address"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="address" class="form-control">
         </div>
     </div>
 
     <div class="row">
         <div class="form-group col-xs-6"
-            ng-class="{ 'has-error' : userForm.city.$invalid && !userForm.city.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.city.$invalid && !userForm.city.$pristine}">
             <label>City</label>
-            <input type="text" name="city" class="form-control"
-                ng-model="main.city"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="city" class="form-control">
         </div>
 
         <div class="form-group col-xs-3"
-            ng-class="{ 'has-error' : userForm.state.$invalid && !userForm.state.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.state.$invalid && !userForm.state.$pristine}">
             <label>State/Province</label>
-            <input type="text" name="state" class="form-control"
-                ng-model="main.state"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="state" class="form-control">
         </div>
 
         <div class="form-group col-xs-3"
-            ng-class="{ 'has-error' : userForm.careOf.$invalid && !userForm.careOf.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.careOf.$invalid && !userForm.careOf.$pristine}">
             <label>Zip/Postal Code</label>
-            <input type="text" name="careOf" class="form-control"
-                ng-model="main.careOf"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="careOf" class="form-control">
         </div>
     </div>
 
     <div class="row">
         <div class="form-group col-xs-12"
-            ng-class="{ 'has-error' : userForm.memo.$invalid && !userForm.memo.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.memo.$invalid && !userForm.memo.$pristine}">
             <label>Memo</label>
-            <input type="text" name="memo" class="form-control"
-                ng-model="main.memo"
-                ng-maxlength="50">
+            <input type="text" name="memo" class="form-control">
         </div>
     </div>
 
     <div class="row">
         <div class="form-group col-xs-12"
-            ng-class="{ 'has-error' : userForm.checkStubInfo.$invalid && !userForm.checkStubInfo.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.checkStubInfo.$invalid && !userForm.checkStubInfo.$pristine}">
             <label>Check Stub Information</label>
-            <input type="text" name="checkStubInfo" class="form-control"
-                ng-model="main.checkStubInfo"
-                ng-maxlength="50">
+            <input type="text" name="checkStubInfo" class="form-control">
         </div>
     </div>
 
@@ -385,7 +313,7 @@
 
     <div class="row">
         <p  class="col-xs-12">Typing your name into the following box constitutes a legally binding signature. By signing you are accepting this
-            <a href="#" data-toggle="modal" data-target="#signatureModal">
+            <a href="#" onclick="return false;" data-toggle="modal" data-target="#signatureModal">
                 agreement.
             </a>
         </p>
@@ -393,28 +321,23 @@
 
     <div class="row">
         <div class="form-group col-xs-6"
-            ng-class="{ 'has-error' : userForm.signature.$invalid && !userForm.signature.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.signature.$invalid && !userForm.signature.$pristine}">
             <label>Signature</label>
-            <input type="text" name="signature" class="form-control"
-                ng-model="main.signature"
-                ng-maxlength="50"
-                required>
+            <input type="text" name="signature" class="form-control">
         </div>
 
         <div class="form-group col-xs-6"
-            ng-class="{ 'has-error' : userForm.sigDate.$invalid && !userForm.sigDate.$pristine && submitted}">
+            ng-class="{ 'has-error' : userForm.sigDate.$invalid && !userForm.sigDate.$pristine}">
             <label>Date</label>
-            <input type="date" name="sigDate" class="form-control"
-                ng-model="main.sigDate"
-                required>
+            <input type="date" name="sigDate" class="form-control">
         </div>
     </div>
 
     <!-- Submit button -->
     <div class="row">
         <div class="form-group col-xs-3">
-            <a href="#" data-toggle="modal" data-target="#successModal">
-                <button type="submit"
+            <a href="#" onclick="return false;" data-toggle="modal" data-target="#successModal">
+                <button type="submit"  ng-disabled="userForm.$invalid"
                     class="btn btn-primary">  
                     Submit
                 </button>
@@ -461,7 +384,7 @@
                 <h4 class="modal-title" id="submission-modal">Success!</h4>
             </div>
             <div class="modal-body">
-                Form successfully submitted!
+                Submitted!
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

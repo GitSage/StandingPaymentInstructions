@@ -1,9 +1,9 @@
-<div class="help-block" ng-messages="userForm.firmName.$error" ng-if="userForm.firmName.$touched && submitted">
+<div class="help-block" ng-messages="userForm.firmName.$error" ng-if="userForm.firmName.$touched">
     <p ng-message="maxlength">Firm name is too long.</p>
     <p ng-message="required">Firm name is required.</p>
 </div>
 
-<div class="help-block" ng-messages="userForm.gNumber.$error" ng-if="userForm.gNumber.$touched && submitted">
+<div class="help-block" ng-messages="userForm.gNumber.$error" ng-if="userForm.gNumber.$touched">
     <p ng-message="minlength">G number must be eight digits long.</p>
     <p ng-message="maxlength">G number must be eight digits long.</p>
     <p ng-message="required">G number is required.</p>
